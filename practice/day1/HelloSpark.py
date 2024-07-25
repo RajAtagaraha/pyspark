@@ -1,19 +1,29 @@
+import sys
 from pyspark.sql import SparkSession 
-import shutil 
-import os
+from practice.day1.lib.utils import *
+from practice.day1.lib.logger import Log4j
 
 
+if __name__ == '__main__':
+    conf = get_spark_app_config()
 
-temp_dir = "C:/Users/91782/Desktop/Projects/pyspark/sparktemp"
+    spark = SparkSession \
+        .builder \
+        .appName("HelloSpark") \
+        .master("local[2]") \
+        .getOrCreate()
 
-if not os.path.exists(temp_dir):
-    os.makedirs(temp_dir)
+    logger = Log4j(spark)
 
-spark = SparkSession.builder\
-    .appName("Hello Spark")\
-    .config("spark.local.dir",temp_dir)\
-    .getOrCreate()
+    if len(sys.argv) != 2:
+        logger.error("Usage: HelloSpark <filename>")
+        sys.exit(-1)
 
-print("Spack Connection is successful!")
+    logger.info("Starting HelloSpark")
 
-spark.stop()
+    survey_raw_df = load_survey_df(spark, sys.argv[1])
+    partitioned_survey_df = survey_raw_df.repartition(2)
+    count_df = count_by_country(partitioned_survey_df)
+    count_df.show()
+
+    logger.info("Finished HelloSpark")

@@ -74,4 +74,7 @@
     a) Scalable b) Performance c) Easy of use d) Fault Tolerant e) Unified platform g) Real-time processing
     h) Machine learning capabilities i) Community and ecosystem
 
-15.
+15. What is Log4j?
+    <b>
+    Log4j is a java based logging framework. Is simple , flexible, reliable and fast.  
+    LogLevel : info, error, warn, fatal
