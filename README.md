@@ -88,3 +88,71 @@
          pyspark.sql.DataFrameStatFunction -
          pyspark.sql.functions - standard built in function
          pyspark.sql.Window - would be used to work with window function
+         
+17. What is spark driver program?
+              
+         Every spark application ---> runs a driver program
+         driver program --> runs the main function and executes various parrallel operations on a cluster.  
+
+RDD
+
+18. What is RDD?
+
+        Resilient distributed Dataset - these are the elements that run and operate on multiple nodes to do parallel processing
+        RDDS are immuteable elements - once created can't be changed 
+        RDDS are fault tolerant - it can recovery automatically if any failure occurs
+        RDD is an in memory data set but can be pushed to disk as well.
+        Backbone of apache spark
+        
+
+19. What are transformation?
+
+        Transformation are the operations applied on RDD to create new RDD.
+        RDD transformation is a lazy operations not execute only when action is called. 
+        Eg; Filter , groupBy and map... etc 
+        
+20. What are Action?
+    
+        Actions are the operations applied on RDD to perform actual computation and send data result back to the driver.              
+
+21. What are the ways to create an RDD?
+    
+        a) parallelizing an existing collection or 
+            sc.parallelize(collection,[numberofpartitions])
+        b) referencing an dataset in external storage (HDFS, HBase, S3)
+            sc.textFile("data.txt",[numberofpartitions])
+
+22. How to create RDD in spark?
+  
+             Create a SparkSession - an entry point to PySpark application. 
+             SparkSession internally creates sparkcontext variable of SparkContext
+         
+23. Can we create more than one SparkContext object?
+  
+            No, spark supports only one SparkContext per JVM. 
+            Although, multiple SparkSession is possible to create. 
+    
+         
+24. List some transformation operations?
+             
+             map, filter, flatmap, join, union, disting, sample, mapPartitions  
+             groupByKey,reduceByKey, sortByKey, aggregateByKey
+         
+
+25. List some RDD Action?
+        
+        collect, count, take, reduce, foreach, first, takeOrdered, takeSample,
+        countByKey, saveAsTextFile, saveAsSequenceFile, saveAsObjectFile, foreachPartition, collectAsMap, 
+        aggregate and fold.
+        
+  
+22. What is the difference between map and flatmap?
+        
+                    
+Note: 
+        
+            Spark will run one task for each partition of the cluster
+            You cannot have smaller partitions than number of blocks   
+            Spark creates one partitions for each block of the file by default- 128 MB 
+            ** PairRDD              
+        
